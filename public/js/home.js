@@ -19,17 +19,17 @@ window.onload = function() {
       title: chatInput.value
     };
 
-    db.collection("chat").add(chat).then(function(doc) {
+    db.collection("chats").add(chat).then(function(doc) {
       console.log("chat add:", doc.id, doc.data());
     });
   }
 
-  db.collection("chat").onSnapshot(function(collectionChat) {
+  db.collection("chats").onSnapshot(function(collectionChats) {
     
-    let list = document.getElementById("chat");
+    let list = document.getElementById("chats");
     list.innerText = "";
 
-    for (let doc of collectionChat.docs) {
+    for (let doc of collectionChats.docs) {
       list.appendChild(createChat(doc.id, doc.data()));
     }
   });
