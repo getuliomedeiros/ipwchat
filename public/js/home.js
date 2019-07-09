@@ -15,11 +15,11 @@ function createChat(id, t) {
 
 window.onload = function() {
   let chatInput = document.getElementById("conversation");
-  let addBtn = document.getElementById("add");
+  let btnAdd = document.getElementById("btnAdd");
   
-  addBtn.onclick = function() {
+  btnAdd.onclick = function() {
     let chat = {
-      userMenssager: document.getElementById('user'),
+      userMenssager: user.displayName.value,
       createIn: new Date(),
       title: chatInput.value
     };
@@ -41,10 +41,10 @@ window.onload = function() {
 
   auth.onAuthStateChanged(function(user) {
     if (user) {
-      let texto = document.getElementById('user');
-      let botao = document.getElementById('disconnect');
-      texto.innerHTML = "User connected: " + user.displayName;
-      botao.addEventListener('click', function() {
+      let textUser = document.getElementById('user');
+      let btn = document.getElementById('disconnect');
+      textUser.innerHTML = "User connected: " + user.displayName;
+      btn.addEventListener('click', function() {
         firebase.auth().signOut().then(function() {
           console.log("You are offline");
         });
