@@ -4,12 +4,7 @@ let db = firebase.firestore();
 function createChat(id, t) {
   let li = document.createElement("li");
   li.innerText = t.createIn.toDate('dd/mm hh:ii') + " - " + t.userMenssager + ": " + t.title;
-  
-  status.value = t.status;
 
-  status.onchange = function(evt) {
-    db.collection("chat").doc(id).update({ status: evt.target.value });
-  }
   return li;
 }
 
@@ -19,13 +14,13 @@ window.onload = function() {
   
   btnAdd.onclick = function() {
     let chat = {
-      userMenssager: user.displayName.value,
+      userMenssager: nameUser,
       createIn: new Date(),
       title: chatInput.value
     };
 
     db.collection("chat").add(chat).then(function(doc) {
-      console.log("chat add:", doc.id);
+      console.log("chat add:", doc.id, doc.data());
     });
   }
 
@@ -44,6 +39,7 @@ window.onload = function() {
       let textUser = document.getElementById('user');
       let btn = document.getElementById('disconnect');
       textUser.innerHTML = "User connected: " + user.displayName;
+      nameUser = user.displayName;
       btn.addEventListener('click', function() {
         firebase.auth().signOut().then(function() {
           console.log("You are offline");
