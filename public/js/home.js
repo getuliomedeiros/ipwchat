@@ -2,8 +2,13 @@ let auth = firebase.auth();
 let db = firebase.firestore();
 
 function createChat(id, t) {
+  let newDate = new Date(t.createIn.seconds * 1000);
+  let dateDisplay = newDate.getDate() + "/" + newDate.getMonth();
+  let hoursDisplay = newDate.getHours() + ":" + newDate.getMinutes();
+  let dateFinal = dateDisplay + " " + hoursDisplay;
   let li = document.createElement("li");
-  li.innerText = t.createIn.toDate('dd/mm hh:ii') + " - " + t.userMenssager + ": " + t.title;
+  li.className = "list-group-item";
+  li.innerText = dateFinal + " - " + t.userMenssager + ": " + t.title;
 
   return li;
 }
@@ -20,15 +25,13 @@ window.onload = function() {
     };
 
     db.collection("chats").add(chat).then(function(doc) {
-      console.log("chat add:", doc.id, doc.data());
+      console.log("chat add:", doc.id);
     });
   }
 
-  db.collection("chats").onSnapshot(function(collectionChats) {
-    
+  db.collection("chats").orderBy("createIn","desc").onSnapshot(function(collectionChats) {
     let list = document.getElementById("chats");
     list.innerText = "";
-
     for (let doc of collectionChats.docs) {
       list.appendChild(createChat(doc.id, doc.data()));
     }
