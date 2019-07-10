@@ -7,7 +7,7 @@ function createChat(id, t) {
   let hoursDisplay = newDate.getHours() + ":" + newDate.getMinutes();
   let dateFinal = dateDisplay + " " + hoursDisplay;
   let li = document.createElement("li");
-  li.className = "list-group-item";
+  li.className = "list-group-item mb-2";
   li.innerText = dateFinal + " - " + t.userMenssager + ": " + t.title;
 
   return li;
