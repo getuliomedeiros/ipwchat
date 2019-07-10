@@ -30,7 +30,7 @@ window.onload = function() {
     chatInput.value = "";
   }
 
-  db.collection("chats").orderBy("createIn","desc").onSnapshot(function(collectionChats) {
+  db.collection("chats").orderBy("createIn").onSnapshot(function(collectionChats) {
     let list = document.getElementById("chats");
     list.innerText = "";
     for (let doc of collectionChats.docs) {
