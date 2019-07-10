@@ -27,6 +27,7 @@ window.onload = function() {
     db.collection("chats").add(chat).then(function(doc) {
       console.log("chat add:", doc.id);
     });
+    chatInput.value = "";
   }
 
   db.collection("chats").orderBy("createIn","desc").onSnapshot(function(collectionChats) {
